@@ -30,90 +30,30 @@ function saveOrganization() {
 </script>
 
 <template>
-    <div class="form-container">
-        <h1>Create an Organization</h1>
-        <form @submit.prevent="saveOrganization" class="organization-form">
-            <div class="form-group">
-                <label>Title</label>
-                <input v-model="organizer.title" type="text" placeholder="Title" class="field" />
-            </div>
-            <div class="form-group">
-                <label>Organization Name</label>
-                <input v-model="organizer.organizer" type="text" placeholder="Organization Name" class="field" />
+    <div class="max-w-2xl mx-auto p-8">
+        <h1 class="text-center text-2xl font-bold mb-6 text-gray-800">Create an Organization</h1>
+        <form @submit.prevent="saveOrganization" class="flex flex-col space-y-4">
+            <div>
+                <label class="font-semibold mb-1 block text-gray-600">Title</label>
+                <input v-model="organizer.title" type="text" placeholder="Title" class="w-full p-3 border border-gray-300 rounded-md" />
             </div>
 
-            <div class="form-group">
-                <label>Location</label>
-                <input v-model="organizer.location" type="text" placeholder="Location" class="field" />
+            <div>
+                <label class="font-semibold mb-1 block text-gray-600">Organization Name</label>
+                <input v-model="organizer.organizer" type="text" placeholder="Organization Name" class="w-full p-3 border border-gray-300 rounded-md" />
             </div>
 
-            <button class="button" type="submit">Submit</button>
+            <div>
+                <label class="font-semibold mb-1 block text-gray-600">Location</label>
+                <input v-model="organizer.location" type="text" placeholder="Location" class="w-full p-3 border border-gray-300 rounded-md" />
+            </div>
+
+            <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-md text-lg font-semibold">Submit</button>
         </form>
 
-        <pre>{{ organizer }}</pre>
+        <pre class="bg-gray-800 text-white p-4 mt-6 rounded-md">{{ organizer }}</pre>
     </div>
 </template>
 
 <style scoped>
-.form-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-}
-
-h1 {
-    text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
-    color: #333;
-}
-
-.organization-form {
-    display: flex;
-    flex-direction: column;
-}
-
-.form-group {
-    margin-bottom: 15px;
-}
-
-label {
-    font-weight: 600;
-    margin-bottom: 5px;
-    display: block;
-    color: #555;
-}
-
-.field {
-    width: 100%;
-    padding: 10px;
-    margin-top: 5px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.button {
-    background-color: #007BFF;
-    color: #fff;
-    padding: 10px 20px;
-    font-size: 16px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    width: 100%;
-    margin-top: 20px;
-}
-
-.button:hover {
-    background-color: #0056b3;
-}
-
-pre {
-    background: #333;
-    color: #fff;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
-}
 </style>

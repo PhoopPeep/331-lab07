@@ -20,24 +20,13 @@ onMounted(() => {
 </script>
 
 <template>
-  <div class="organization-list-container">
-    <h1>Organizations</h1>
-    <div class="flex flex-col items-center">
+  <div class="max-w-3xl mx-auto p-8">
+    <h1 class="text-2xl font-bold mb-6 text-center text-gray-800">Organizations</h1>
+    <div class="flex flex-col items-center space-y-4">
       <OrganizationCard v-for="organization in organizations" :key="organization.id" :organization="organization" />
     </div>
   </div>
 </template>
 
 <style scoped>
-.organization-list-container {
-  max-width: 600px;
-  margin: 0 auto;
-  padding: 20px;
-}
-
-h1 {
-  font-size: 24px;
-  margin-bottom: 20px;
-  color: #333;
-}
 </style>
