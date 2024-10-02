@@ -6,6 +6,7 @@ import OrganizerService from '@/services/OrganizerService';
 import { useRouter } from 'vue-router';
 import { useMessageStore } from '@/stores/message';
 import BaseInput from '@/components/BaseInput.vue';
+import BaseSelect from '@/components/BaseSelect.vue';
 
 const event = ref<Event>({
     id: 0,
@@ -77,16 +78,7 @@ onMounted(() => {
             <!-- Organizer -->
             <h3 class="text-lg font-semibold text-gray-700 mt-4">Who is your Organizer?</h3>
             <label>Select an Organizer</label>
-            <select v-model="event.organizer.id">
-                <option 
-                    v-for="option in organizers"
-                    :value="option.id"
-                    :key="option.id"
-                    :selected="option.id === event.organizer.id" 
-                >
-                    {{ option.name }}
-                </option>
-            </select>
+                <BaseSelect v-model="event.organizer.id" :options="organizers" label="Organizer" />
             <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-md text-lg font-semibold mt-6">
                 Submit
             </button>
