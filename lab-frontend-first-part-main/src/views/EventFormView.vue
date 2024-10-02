@@ -1,7 +1,8 @@
 <script setup lang="ts">
-import type { Event } from '@/types';
-import { ref } from 'vue';
+import type { Event, Organizer } from '@/types';
+import { onMounted, ref } from 'vue';
 import EventService from '@/services/EventService';
+import OrganizerService from '@/services/OrganizerService';
 import { useRouter } from 'vue-router';
 import { useMessageStore } from '@/stores/message';
 import BaseInput from '@/components/BaseInput.vue';
@@ -36,30 +37,56 @@ function saveEvent() {
             router.push({ name: 'network-error-view' })
         })
 }
+
+const organizers = ref<Organizer[]>([])
+onMounted(() => {
+    OrganizerService.getOrganizers()
+        .then((response) => {
+            organizers.value = response.data
+        })
+        .catch(() => {
+            router.push({ name: 'network-error-view' })
+        })
+})
 </script>
 
 <template>
     <div class="max-w-xl mx-auto p-8">
         <h1 class="text-center text-2xl font-bold mb-6 text-gray-800">Create an Event</h1>
         <form @submit.prevent="saveEvent" class="space-y-4">
+            <!-- Category -->
             <div class="space-y-2">
                 <BaseInput v-model="event.category" type="text" label="Category" class="w-full p-3 border border-gray-300 rounded-md" />
             </div>
 
+            <!-- Name & Description -->
             <h3 class="text-lg font-semibold text-gray-700 mt-4">Name & Describe Your Event</h3>
             <div class="space-y-2">
                 <BaseInput v-model="event.title" type="text" label="Title" class="w-full p-3 border border-gray-300 rounded-md" />
             </div>
-
             <div class="space-y-2">
                 <BaseInput v-model="event.description" type="text" label="Description" class="w-full p-3 border border-gray-300 rounded-md min-h-[100px]" />
             </div>
 
+            <!-- Location -->
             <h3 class="text-lg font-semibold text-gray-700 mt-4">Where is Your Event?</h3>
             <div class="space-y-2">
                 <BaseInput v-model="event.location" type="text" label="Location" class="w-full p-3 border border-gray-300 rounded-md" />
             </div>
 
+            <!-- Organizer -->
+            <h3 class="text-lg font-semibold text-gray-700 mt-4">Who is your Organizer?</h3>
+            <label>Select an Organizer</label>
+            <select v-model="event.organizer.id">
+                <option 
+                    v-for="option in organizers"
+                    :value="option.id"
+                    :key="option.id"
+                    :selected="option.id === event.organizer.id" 
+                >
+                    {{ option.name }}
+                </option>
+            </select>
             <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-md text-lg font-semibold mt-6">
                 Submit
             </button>
