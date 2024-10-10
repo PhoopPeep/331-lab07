@@ -19,10 +19,12 @@ const props = defineProps({
     required: true
   }
 })
+
+
 const page = computed(() => props.page)
 onMounted(() => {
   watchEffect(() => {
-    EventService.getEvents(3, page.value)
+    EventService.getEvents(1, page.value)
       .then((response) => {
         events.value = response.data
         totalEvents.value = response.headers['x-total-count']
@@ -30,6 +32,7 @@ onMounted(() => {
       .catch(() => {
         router.push({ name: 'network-error-view' })
       })
+      updateKeyword()
   })
 })
 
