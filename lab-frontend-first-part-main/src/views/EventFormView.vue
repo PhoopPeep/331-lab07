@@ -3,6 +3,7 @@ import type { Event, Organizer } from '@/types';
 import { onMounted, ref } from 'vue';
 import EventService from '@/services/EventService';
 import OrganizerService from '@/services/OrganizerService';
+import ImageUpload from '@/components/ImageUpload.vue';
 import { useRouter } from 'vue-router';
 import { useMessageStore } from '@/stores/message';
 import BaseInput from '@/components/BaseInput.vue';
@@ -20,7 +21,8 @@ const event = ref<Event>({
     organizer: {
         id: 0,
         name: ''
-    }
+    },
+    images: []
 })
 
 const router = useRouter()
@@ -79,6 +81,9 @@ onMounted(() => {
             <h3 class="text-lg font-semibold text-gray-700 mt-4">Who is your Organizer?</h3>
             <label>Select an Organizer</label>
                 <BaseSelect v-model="event.organizer.id" :options="organizers" label="Organizer" />
+
+                <h3>The image of the Event</h3>
+                <ImageUpload v-model="event.images" />
             <button type="submit" class="w-full bg-green-600 hover:bg-green-700 text-white py-3 rounded-md text-lg font-semibold mt-6">
                 Submit
             </button>
